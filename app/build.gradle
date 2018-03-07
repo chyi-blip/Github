@@ -1,14 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
     defaultConfig {
         applicationId "com.primb.github"
-        minSdkVersion 19
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -20,8 +22,44 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    implementation "com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"
+    implementation "com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"
+    implementation "com.android.support:design:${ANDROID_SUPPORT_VERSION}"
+    implementation "com.android.support:cardview-v7:${ANDROID_SUPPORT_VERSION}"
+    implementation "com.android.support:support-vector-drawable:${ANDROID_SUPPORT_VERSION}"
+    implementation "com.android.support:preference-v7:${ANDROID_SUPPORT_VERSION}"
+    implementation "com.android.support:preference-v14:${ANDROID_SUPPORT_VERSION}"
+    implementation "com.android.support:customtabs:${ANDROID_SUPPORT_VERSION}"
+
+    implementation "com.android.support.constraint:constraint-layout:${CONSTRAINT_VERSION}"
+
+    implementation "com.thirtydegreesray:dataautoaccess:${DATAAUTOACCESS_VERSION}"
+    annotationProcessor "com.thirtydegreesray:dataautoaccess-compiler:${DATAAUTOACCESS_VERSION}"
+
+    implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
+    //数据库工具
+    implementation "org.greenrobot:greendao:${GREEN_DAO_VERSION}"
+    //事件总线
+    implementation "org.greenrobot:eventbus:${EVENT_BUS_VERSION}"
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxjava:${RXJAVA_VERSION}"
+    implementation "io.reactivex.rxjava2:rxandroid:${RXJAVA_VERSION}"
+    //Type-safe HTTP client for Android and Java by Square, Inc.
+    implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
+    implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}"
+    //腾讯Bugly
+    implementation "com.tencent.bugly:crashreport_upgrade:${BUGLY_VERSION}"
+    //dagger依赖注入
+    implementation "com.google.dagger:dagger:${DAGGER_VERSION}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
+    //logger日志
+    implementation "com.orhanobut:logger:${LOGGER_VERSION}"
+    //toast
+    implementation "com.github.GrenderG:Toasty:${TOASTY_VERSION}"
 }

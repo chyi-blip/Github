@@ -1,3 +1,4 @@
 <resources>
-  <string name="app_name">Github</string>
+  <string name="app_name">GitHub</string>
+  <string name="success_copied">Copied</string>
 </resources>
