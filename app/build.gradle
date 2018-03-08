@@ -1,4 +1,14 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.novoda.build-properties'
+
+buildProperties {
+    getPublic {
+        file rootProject.file('public.properties')
+    }
+    getLocal {
+        file rootProject.file('local.properties')
+    }
+}
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
@@ -11,12 +21,36 @@ android {
         versionName VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+        buildConfigField "String", "OPENHUB_CLIENT_ID", (buildProperties.getLocal['openhub_client_id'] | buildProperties.getPublic['openhub_client_id']).string
+        buildConfigField "String", "OPENHUB_CLIENT_SECRET", (buildProperties.getLocal['openhub_client_secret'] | buildProperties.getPublic['openhub_client_secret']).string
+        buildConfigField "String", "BUGLY_ID", (buildProperties.getLocal['bugly_appid'] | buildProperties.getPublic['bugly_appid']).string
+        buildConfigField "String", "DEBUG_BUGLY_ID", (buildProperties.getLocal['debug_bugly_appid'] | buildProperties.getPublic['debug_bugly_appid']).string
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        normal {
+            dimension "default"
+            // add app_name int string.xml
+            resValue "string", "app_name", "GitHub"
+        }
+        fullName {
+            dimension "default"
+            // add app_name int string.xml
+            resValue "string", "app_name", "OpenHub for GitHub"
+        }
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [BUGLY_APP_CHANNEL_VALUE: name]
     }
 }
 
